@@ -1,10 +1,11 @@
 const BlockChain = require('./blockchain');
 const Block = require('./block')
 describe('BlockChain', () => {
-  let bc;
+  let bc, bc2;
 
   beforeEach(() => {
     bc = new BlockChain()
+    bc2 = new BlockChain()
   })
 
   it('should start with one `Block` in the chain', () => {
@@ -21,5 +22,23 @@ describe('BlockChain', () => {
     bc.addBlock(data)
 
     expect(bc.chain[bc.chain.length - 1].data).toEqual(data)
+  })
+
+  it('should validate a valid chain', () => {
+    bc2.addBlock('foo')
+
+    expect(bc.isValidChain(bc2.chain)).toBe(true)
+  })
+
+  it('should invalidate a chain with corrupt genesis block', () => {
+    bc2.chain[0].data = 'bad data'
+
+    expect(bc.isValidChain(bc2.chain)).toBe(false)
+  })
+
+  it('invalidates a corrupt chain', () => {
+    bc2.addBlock('foo')
+    bc2.chain[1].data = 'fake foo'
+    expect(bc.isValidChain(bc2.chain)).toBe(false)
   })
 })
