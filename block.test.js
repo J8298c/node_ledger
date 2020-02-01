@@ -6,17 +6,24 @@ describe('Block', () => {
   let block;
 
   beforeEach(() => {
-    data = 'bar';
     lastBlock = Block.genesis();
-    block = Block.mineBlock(lastBlock, data);
-  })
-  it('sets `data` to match input passed', () => {
-    console.log(block)
-    console.log(lastBlock)
-    expect(block.data).toEqual(data);
+    data = 'bar'
+    block = Block.mineBlock(lastBlock, data)
   })
 
-  it('sets the `lastHash` to match the hash of last block', () => {
-    expect(block.lastHash).toEqual(lastBlock.hash)
+  it('should have `block` defined', () => {
+    expect(block.data).toBeDefined()
+  })
+
+  it('should have `data` defined', () => {
+    expect(data).toEqual('bar')
+  })
+
+  it('should have lastBlock defined', () => {
+    expect(block.lasthash).toEqual(lastBlock.hash)
+  })
+
+  it('block should have lastblock hash', () => {
+    expect(block.data).toEqual(data)
   })
 })
