@@ -1,0 +1,24 @@
+{
+  "name": "node_ledger",
+  "version": "1.0.0",
+  "description": "node block chain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-test": "nodemon dev.test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J8298c/node_ledger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/J8298c/node_ledger/issues"
+  },
+  "homepage": "https://github.com/J8298c/node_ledger#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
