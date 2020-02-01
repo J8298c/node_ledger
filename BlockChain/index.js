@@ -27,6 +27,21 @@ class BlockChain {
     return true;
   }
 
+  replaceChain(newChain) {
+    const message = 'trying to add invalid chain'
+    if(newChain.length <= this.chain.length) {
+      console.log(message)
+      return;
+    } else if(!this.isValidChain(newChain)) {
+      console.log(message)
+      return
+    } else {
+      this.chain = newChain
+      console.log('replacing current chain')
+    }
+
+  }
+
 }
 
 module.exports = BlockChain;

@@ -1,5 +1,6 @@
-const BlockChain = require('./blockchain');
+const BlockChain = require('./index');
 const Block = require('./block')
+
 describe('BlockChain', () => {
   let bc, bc2;
 
@@ -40,5 +41,18 @@ describe('BlockChain', () => {
     bc2.addBlock('foo')
     bc2.chain[1].data = 'fake foo'
     expect(bc.isValidChain(bc2.chain)).toBe(false)
+  })
+
+  it('should add a new chain when a valid chain is passed in', () => {
+    bc2.addBlock('goober')
+    bc.replaceChain(bc2.chain)
+    expect(bc.chain).toEqual(bc2.chain);
+  })
+
+  it('does not replace the chain when value is <= length', () => {
+    bc.addBlock('goober')
+    bc.replaceChain(bc2.chain);
+
+    expect(bc.chain).not.toEqual(bc2.chain)
   })
 })
