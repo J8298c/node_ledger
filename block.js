@@ -13,6 +13,12 @@ class Block {
     Hash     : ${this.hash.substring(0, 10)}
     Data     : ${this.data}`;
   }
+
+  // static gives the ability to call method with creating block
+  // instance
+  static genesis() {
+    return new this('Genesis time', '------', 'f1r57-h45h', [])
+  }
 }
 
 module.exports = Block;
