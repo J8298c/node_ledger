@@ -27,4 +27,9 @@ describe('Block', () => {
   it('should lower the diffculty', () => {
     expect(Block.adjustDiffculty(block, block.timestamp + 36000000)).toEqual(block.diffculty - 1)
   })
+
+  it('should raise difficulty', () => {
+      expect(Block.adjustDiffculty(block, block.timestamp + 1)).toEqual(block.diffculty + 1)
+  })
+  
 })
