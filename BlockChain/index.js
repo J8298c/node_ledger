@@ -1,4 +1,4 @@
-const Block = require('./block');
+const Block = require("./block");
 
 class BlockChain {
   constructor() {
@@ -6,16 +6,31 @@ class BlockChain {
   }
 
   addBlock(data) {
-    const block = Block.mineBlock(this.chain[this.chain.length - 1], data)
-    this.chain.push(block)
+    const block = Block.mineBlock(this.chain[this.chain.length - 1], data);
+    this.chain.push(block);
     return block;
   }
 
+  isValidChain(chain) {
+    if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
+      console.log("genesis blocks not equal");
+      return false;
+    }
+    for (let i = 1; i < chain.length; i++) {
+      const block = chain[i]; // block at index of 1
+      const lastBlock = chain[i - 1]; // should be genesis block
+
+      if (
+        block.lasthash !== lastBlock.hash ||
+        Block.blockHash(block) !== block.hash
+      ) {
+        console.log(`chain doesnt match current chain`)
+        return false;
+      }
+      console.log('valid chain')
+      return true;
+    }
+  }
 }
-
-
-let bc = new BlockChain()
-bc.addBlock('fooshinkens')
-console.log(bc.chain)
 
 module.exports = BlockChain;

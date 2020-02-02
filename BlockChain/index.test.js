@@ -25,34 +25,19 @@ describe('BlockChain', () => {
     expect(bc.chain[bc.chain.length - 1].data).toEqual(data)
   })
 
-  it('should validate a valid chain', () => {
-    bc2.addBlock('foo')
-
+  it('validates a vaid chain', () => {
+    bc2.addBlock('foo');
     expect(bc.isValidChain(bc2.chain)).toBe(true)
   })
 
-  it('should invalidate a chain with corrupt genesis block', () => {
-    bc2.chain[0].data = 'bad data'
-
+  it('invalidates chain with corrupt gensis block', () => {
+    bc2.chain[0].data = 'wrng Data'
     expect(bc.isValidChain(bc2.chain)).toBe(false)
   })
 
   it('invalidates a corrupt chain', () => {
-    bc2.addBlock('foo')
-    bc2.chain[1].data = 'fake foo'
+    bc2.addBlock('fooshnickes')
+    bc2.chain[1].data = 'not fooshnickes'
     expect(bc.isValidChain(bc2.chain)).toBe(false)
-  })
-
-  it('should add a new chain when a valid chain is passed in', () => {
-    bc2.addBlock('goober')
-    bc.replaceChain(bc2.chain)
-    expect(bc.chain).toEqual(bc2.chain);
-  })
-
-  it('does not replace the chain when value is <= length', () => {
-    bc.addBlock('goober')
-    bc.replaceChain(bc2.chain);
-
-    expect(bc.chain).not.toEqual(bc2.chain)
   })
 })
