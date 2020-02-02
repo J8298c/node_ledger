@@ -40,4 +40,16 @@ describe('BlockChain', () => {
     bc2.chain[1].data = 'not fooshnickes'
     expect(bc.isValidChain(bc2.chain)).toBe(false)
   })
+
+  it('should replace the current chain', () => {
+    bc2.addBlock('foo shincks')
+    bc.replaceChain(bc2.chain)
+    expect(bc.chain).toEqual(bc2.chain)
+  })
+
+  it('should not replace chain if not longer than current chain', () => {
+    bc.addBlock('first')
+    bc.replaceChain(bc2.chain)
+    expect(bc.chain).not.toEqual(bc2.chain)
+  })
 })
