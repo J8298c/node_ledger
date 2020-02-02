@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const BlockChain = require('../BlockChain');
-const P2pServer = require('./p2p-server');
+const P2PServer = require('./p2p-server');
 
 const PORT = process.env.PORT || 3001;
 
@@ -11,7 +11,7 @@ app.use(bodyParser.json({ limit: '50mb'}))
 
 
 const bc = new BlockChain();
-const p2pServer = new P2pServer(bc)
+const p2pServer = new P2PServer(bc)
 
 app.get('/blocks', (req, res) => {
   res.json(bc.chain)
@@ -23,7 +23,6 @@ app.post('/mine', (req, res) => {
 
   const block = bc.addBlock(req.body.data)
   console.log(`New Block added ${block.toString()}`)
-  p2pServer.syncChains()
   return res.redirect('/blocks');
 })
 
@@ -31,4 +30,4 @@ app.listen(PORT, () => {
   console.log(`app is listening on port: ${PORT}`)
 });
 
-p2pServer.listen();
+p2pServer.listen()
