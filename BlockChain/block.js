@@ -13,12 +13,12 @@ class Block {
 
   toString() {
     return `Block -
-    Timestamp: ${this.timestamp}
-    Last Hash: ${this.lasthash.substring(0, 10)}
-    Hash     : ${this.hash.substring(0, 10)}
-    Nonce    : ${this.nonce}
+    Timestamp : ${this.timestamp}
+    Last Hash : ${this.lasthash.substring(0, 10)}
+    Hash      : ${this.hash.substring(0, 10)}
+    Nonce     : ${this.nonce}
     Difficulty: ${this.diffculty}
-    Data     : ${this.data}`;
+    Data      : ${this.data}`;
   }
 
   // static gives the ability to call method with creating block

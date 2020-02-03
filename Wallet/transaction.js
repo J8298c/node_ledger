@@ -23,8 +23,6 @@ class Transaction {
     return transaction;
   }
 
-
-
 }
 
 module.exports = Transaction;
