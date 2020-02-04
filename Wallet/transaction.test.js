@@ -1,3 +1,4 @@
+/* eslint-disable one-var-declaration-per-line */
 /* eslint-disable comma-dangle */
 /* eslint-disable arrow-parens */
 /* eslint-disable one-var */
@@ -50,6 +51,26 @@ describe('Trasnsaction', () => {
 
     it('does not create the transaction', () => {
       expect(transaction).toBeUndefined();
+    });
+  });
+
+  describe('updating a transaction', () => {
+    let nextAmount, nextRecipient;
+
+    beforeEach(() => {
+      nextAmount = 20;
+      nextRecipient = 'nextAddress';
+      transaction = transaction.update(wallet, nextRecipient, nextAmount);
+    });
+
+    it('subtracts the next amount from the senders output', () => {
+      expect(transaction.outputs.find(output => output.address === wallet.publicKey).amount)
+        .toEqual(wallet.balance - amount - nextAmount);
+    });
+
+    it('outputs an amount for thje next recipient', () => {
+      expect(transaction.outputs.find(output => output.address === nextRecipient).amount)
+        .toEqual(nextAmount);
     });
   });
 });

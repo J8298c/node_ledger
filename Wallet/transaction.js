@@ -1,3 +1,6 @@
+/* eslint-disable operator-assignment */
+/* eslint-disable no-useless-return */
+/* eslint-disable arrow-parens */
 /* eslint-disable no-console */
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
@@ -8,6 +11,21 @@ class Transaction {
     this.id = ChainUtils.id();
     this.input = null;
     this.outputs = [];
+  }
+
+  update(senderWallet, recipient, amount) {
+    const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey);
+
+    if (amount > senderOutput.amount) {
+      console.log(`Amount: ${amount} exceeds balance`);
+      return;
+    }
+    senderOutput.amount = senderOutput.amount - amount;
+
+    this.outputs.push({ amount, address: recipient });
+    Transaction.signTransaction(this, senderWallet);
+
+    return this;
   }
 
   static newTransaction(senderWallet, recipient, amount) {
@@ -43,6 +61,7 @@ class Transaction {
       ChainUtils.hash(transaction.outputs),
     );
   }
+
 }
 
 module.exports = Transaction;
