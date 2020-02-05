@@ -1,9 +1,13 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-console */
+/* eslint-disable no-useless-return */
 const { INITIAL_BALANCE } = require('../config');
-const ChainUtil = require('../chain.utils')
+const ChainUtil = require('../chain.utils');
+const Transaction = require('./transaction');
 
 class Wallet {
   constructor() {
-    this.balance = INITIAL_BALANCE
+    this.balance = INITIAL_BALANCE;
     this.keyPair = ChainUtil.genKeyPair();
     this.publicKey = this.keyPair.getPublic().encode('hex');
   }
@@ -12,11 +16,28 @@ class Wallet {
     return `Wallet-
       publicKey: ${this.publicKey.toString()}
       balance  : ${this.balance}
-    `
+    `;
   }
 
   sign(dataHash) {
-    return this.keyPair.sign(dataHash)
+    return this.keyPair.sign(dataHash);
+  }
+
+  createTransaction(recipient, amount, transactionPool) {
+    if (amount > this.balance) {
+      console.log(`amount: ${amount} exceeds current balance: ${this.balance}`);
+      return;
+    }
+
+    let transaction = transactionPool.existingTransaction(this.publicKey);
+
+    if (transaction) {
+      transaction.update(this, recipient, amount);
+    } else {
+      transaction = Transaction.newTransaction(this, recipient, amount);
+      transactionPool.updateOrAddTransaction(transaction);
+    }
+    return transaction;
   }
 }
 

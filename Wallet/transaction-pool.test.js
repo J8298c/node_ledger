@@ -1,3 +1,4 @@
+/* eslint-disable arrow-parens */
 /* eslint-disable no-undef */
 /* eslint-disable one-var */
 const TransactionPool = require('./transaction-pool');
