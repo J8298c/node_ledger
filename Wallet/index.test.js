@@ -30,6 +30,12 @@ describe('Wallet', () => {
       it('doubles the sendamount subtracted from the wallet balance', () => {
         expect(transaction.outputs.find(output => output.address === wallet.publicKey).amount).toEqual(wallet.balance - sendamount * 2);
       });
+
+      it('clones the sendamount output for the recipient', () => {
+        expect(transaction.outputs.filter(output => output.address === reciepient)
+          .map(output => output.amount))
+          .toEqual(([sendamount, sendamount]))
+      })
     });
   });
 });
