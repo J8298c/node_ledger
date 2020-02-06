@@ -43,6 +43,10 @@ app.post('/mine', (req, res) => {
   return res.redirect('/blocks');
 })
 
+app.get('/public-key', (req, res) => {
+  res.json({ publicKey: wallet.publicKey })
+})
+
 app.listen(PORT, () => {
   console.log(`app is listening on port: ${PORT}`)
 });
