@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-undef */
 /* eslint-disable one-var */
@@ -12,7 +13,7 @@ describe('TransactionPool', () => {
   beforeEach(() => {
     tp = new TransactionPool();
     wallet = new Wallet();
-    transaction = wallet.createTransaction('rando', 30, tp)
+    transaction = wallet.createTransaction('rando', 30, tp);
   });
 
   it('adds a `transaction` to the pool', () => {
@@ -37,24 +38,24 @@ describe('TransactionPool', () => {
     beforeEach(() => {
       validTransaction = [...tp.transactions];
 
-      for(let i = 0; i < 6; i++) {
+      for (let i = 0; i < 6; i++) {
         wallet = new Wallet();
         transaction = wallet.createTransaction('rando', 30, tp);
 
-        if(i % 2 === 0) {
+        if (i % 2 === 0) {
           transaction.input.amount = 99999; // corrupt transaction
         } else {
           validTransaction.push(transaction);
         }
       }
-    })
+    });
 
     it('shouws a diff between valid and corrupt transaction', () => {
       expect(JSON.stringify(tp.transactions)).not.toEqual(JSON.stringify(validTransaction));
-    })
+    });
 
     it('grabs valid transaction', () => {
-      expect(tp.vaildTransaction()).toEqual(validTransaction)
-    })
-  })
+      expect(tp.vaildTransaction()).toEqual(validTransaction);
+    });
+  });
 });
